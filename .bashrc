@@ -1,0 +1,1 @@
+/home/maners/projects/dotfiles/home/.bashrc

@@ -1,0 +1,8 @@
+# generic
+tags
+
+# vim-sync
+.sync
+
+# datto projects
+web/debug/

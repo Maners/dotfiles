@@ -1,0 +1,1 @@
+amd_iommu=on iommu=pt pci-stub.ids=1002:73bf,1002:ab28 rd.driver.pre=vfio-pci

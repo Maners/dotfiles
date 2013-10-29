@@ -1,0 +1,21 @@
+[user]
+	name = Dawid Zamirski
+	email = dzrudy@gmail.com
+[core]
+	editor = nvim
+	excludesFile = /home/maners/.gitignore
+[merge]
+    tool = meld
+[mergetool "meld"]
+    # Choose one of these 2 lines (not both!) explained below.
+    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+    #cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+[pull]
+	rebase = false
+[sendemail]
+	smtpserver = smtp.googlemail.com
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser = dzrudy@gmail.com
+	smtppass = 
+	chainreplyto = false
