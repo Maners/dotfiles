@@ -31,8 +31,10 @@ augroup BgHighlight
 augroup END
 
 " Keyborad bindings
-imap jj <Esc> " Map jj to exit insert mode
-nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T " Map \C-] to open reference in new tab
+" Map jj to exit insert mode
+imap jj <Esc>
+" Map \C-] to open reference in new tab
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
 " Sets C-Space to invoke autocomplete
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
@@ -41,6 +43,7 @@ inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
 \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
 \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
+" Map F3 to init vimgrep for current word in PHP files
 nmap <F3> :vimgrep /<C-R><C-W>/j **/*.php
 
 " Buffer handling
@@ -55,3 +58,6 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 " for PHP Documenter plugin
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
+
+" EasyTags config
+let g:easytags_dynamic_files=2
