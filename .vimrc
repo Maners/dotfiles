@@ -46,6 +46,9 @@ imap <C-@> <C-Space>
 " Map F3 to init vimgrep for current word in PHP files
 nmap <F3> :vimgrep /<C-R><C-W>/j **/*.php
 
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " Buffer handling
 set switchbuf+=usetab,newtab " use tabs when switching buffers
 
@@ -59,5 +62,14 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 
-" EasyTags config
-let g:easytags_dynamic_files=2
+" php highliter options
+let g:php_show_semicolon_error=0
+let g:php_smart_members=1
+
+" php highligt groups linking to TagHigglight
+"hi link phpMethodCall CTagsFunction
+"hi link phpDefineMethodName CTagsFunction
+"hi link phpPropertyHere phpIdentifier 
+"hi link phpDefineClassName CTagsClass
+"hi link phpStructureHere CTagsClass
+"hi link phpDefineFuncProto CTagsClass
