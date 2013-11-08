@@ -19,6 +19,12 @@ set shiftwidth=2
 set tabstop=2
 set smartindent
 
+" Support ctags file in .git
+set tags+=.git/tags
+
+" Set leader key to ,
+let mapleader=","
+
 " Setup color scheme
 set t_Co=256
 colors molokai 
@@ -36,6 +42,9 @@ imap jj <Esc>
 " Map \C-] to open reference in new tab
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
+nnoremap <Leader>. :CtrlPTag<CR>
+nnoremap <silent><Leader>b :TagbarToggle<CR>
+
 " Sets C-Space to invoke autocomplete
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
 \ "\<lt>C-n>" :
@@ -50,7 +59,7 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " Buffer handling
-set switchbuf+=usetab,newtab " use tabs when switching buffers
+"set switchbuf+=usetab,newtab " use tabs when switching buffers
 
 " SuperRetab
 command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
