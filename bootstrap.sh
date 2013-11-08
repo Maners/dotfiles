@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-files=".vimrc .vim"
+files=".vimrc .vim .bashrc"
 dir=`"pwd"`
 cd $dir
 git pull origin master
@@ -19,6 +19,7 @@ else
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         doIt
+				source ~/.bashrc
     fi
 fi
 unset doIt
