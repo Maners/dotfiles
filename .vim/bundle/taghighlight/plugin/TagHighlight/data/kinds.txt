@@ -150,6 +150,7 @@ php:
 	f:CTagsFunction
 	v:CTagsGlobalVariable
 	j:CTagsFunction
+	n:CTagsNamespace
 python:
 	c:CTagsClass
 	f:CTagsFunction
