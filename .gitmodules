@@ -25,3 +25,6 @@
 [submodule ".vim/bundle/ultisnips.vim"]
 	path = .vim/bundle/ultisnips.vim
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim-fugitive.vim"]
+	path = vim-fugitive.vim
+	url = git://github.com/tpope/vim-fugitive.git
