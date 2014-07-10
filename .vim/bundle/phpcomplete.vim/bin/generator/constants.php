@@ -77,26 +77,36 @@ function inject_class_constants(&$class_groups, $class_constant_groups, $generat
     }
 }
 
-function write_constant_names_to_vim_hash($constant_groups, $outdir) {
-    if (!is_dir($outdir)) {
-        mkdir($outdir);
+function write_constant_names_to_vim_hash($constant_groups, $outpath, $keyname, $enabled_extensions = null, $prettyprint = true) {
+    $fd = fopen($outpath, 'a');
+    if (!empty($enabled_extensions)) {
+        $enabled_extensions = array_flip($enabled_extensions);
     }
-    $old_files = glob($outdir.'/*.vim');
-    array_map('unlink', $old_files);
-
     foreach ($constant_groups as $extension_name => $constants) {
         if (empty($constants)) {
             continue;
         }
-
-        $outpath = $outdir.'/'.filenameize($extension_name).'.vim';
-        $fd = fopen($outpath, 'w');
-
-        fwrite($fd, "call extend(g:php_constants, {\n");
-        foreach ($constants as $constant => $__not_used) {
-            fwrite($fd, "\\ '{$constant}': '',\n");
+        if ($enabled_extensions && !isset($enabled_extensions[filenameize($extension_name)])) {
+            continue;
         }
-        fwrite($fd, "\\ })\n");
-        fclose($fd);
+
+        if ($prettyprint) {
+            fwrite($fd, "let g:phpcomplete_builtin['".$keyname."']['".filenameize($extension_name)."'] = {\n");
+        } else {
+            fwrite($fd, "let g:phpcomplete_builtin['".$keyname."']['".filenameize($extension_name)."']={");
+        }
+        foreach ($constants as $constant => $__not_used) {
+            if ($prettyprint) {
+                fwrite($fd, "\\ '{$constant}': '',\n");
+            } else {
+                fwrite($fd, "'{$constant}':'',");
+            }
+        }
+        if ($prettyprint) {
+            fwrite($fd, "\\ }\n");
+        } else {
+            fwrite($fd, "}\n");
+        }
     }
+    fclose($fd);
 }

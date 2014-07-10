@@ -10,6 +10,7 @@ fun! TestCase_returns_methods()
     \   'static_properties': {
     \   },
     \   'methods': {
+    \     '__construct': { 'signature': '[ string $time = "now" [, DateTimeZone $timezone = NULL]]', 'return_type': ''},
     \     'add': { 'signature': 'DateInterval $interval | DateTime', 'return_type': 'DateTime'},
     \   },
     \   'static_methods': {
@@ -136,3 +137,5 @@ fun! TestCase_returns_constants()
                 \ 'kind': 'd'}],
                 \ ret)
 endfun
+
+" vim: foldmethod=marker:expandtab:ts=4:sts=4

@@ -1,7 +1,7 @@
 fun! SetUp()
-    " disable built-in functions
+    " disable built-in classes
     let g:php_builtin_classnames = {}
-    " disable built-in functions
+    " disable built-in interfaces
     let g:php_builtin_interfacenames = {}
     " disable built-in functions
     let g:php_builtin_functions = {}
@@ -55,7 +55,6 @@ fun! TestCase_completes_functions_classes_constants_from_tags() " {{{
                 \ {'word': 'common_public_static_method(',              'info': 'common_public_static_method($foo) - fixtures/CompleteGeneral/foo.php',                   'menu': '$foo) - fixtures/CompleteGeneral/foo.php',      'kind': 'f'},
                 \ {'word': 'common_static_public_method(',              'info': 'common_static_public_method($foo) - fixtures/CompleteGeneral/foo.php',                   'menu': '$foo) - fixtures/CompleteGeneral/foo.php',      'kind': 'f'}],
                 \ res)
-
 endf " }}}
 
 fun! TestCase_completes_function_signature_from_tags_if_field_available() " {{{
@@ -140,13 +139,41 @@ fun! TestCase_completes_builtin_class_names() " {{{
 
     " PDO should not be picked up
     let g:php_builtin_classnames = {
-                \ 'DateTime':'',
-                \ 'PDO':'',
+                \ 'datetime':'',
+                \ 'pdo':'',
+                \ }
+
+    let g:php_builtin_classes = {
+                \ 'datetime':{
+                \   'name': 'DateTime',
+                \ },
+                \ 'pdo':{
+                \   'name': 'PDO',
+                \ }
                 \ }
 
     let res = phpcomplete#CompleteGeneral('date', '\', {})
     call VUAssertEquals([
                 \ {'word': 'DateTime', 'kind': 'c', 'menu': ' - builtin', 'info': 'DateTime - builtin'}],
+                \ res)
+endf " }}}
+
+fun! TestCase_completes_builtin_interface_names() " {{{
+    call SetUp()
+
+    " PDO should not be picked up
+    let g:php_builtin_interfacenames = {
+                \ 'traversable':'',
+                \ }
+    let g:php_builtin_interfaces = {
+                \ 'traversable':{
+                \   'name': 'Traversable',
+                \ }
+                \ }
+
+    let res = phpcomplete#CompleteGeneral('Tr', '\', {})
+    call VUAssertEquals([
+                \ {'word': 'Traversable', 'kind': 'i', 'menu': ' - builtin', 'info': 'Traversable - builtin'}],
                 \ res)
 endf " }}}
 
@@ -220,8 +247,16 @@ fun! TestCase_completes_builtin_class_names_when_in_namespace_and_base_starts_wi
 
     " PDO should not be picked up
     let g:php_builtin_classnames = {
-                \ 'DateTime':'',
-                \ 'PDO':'',
+                \ 'datetime':'',
+                \ 'pdo':'',
+                \ }
+    let g:php_builtin_classes = {
+                \ 'datetime':{
+                \   'name': 'DateTime',
+                \ },
+                \ 'pdo':{
+                \   'name': 'PDO',
+                \ }
                 \ }
 
     let res = phpcomplete#CompleteGeneral('\date', 'SomeNameSpace', {})
@@ -285,6 +320,19 @@ fun! TestCase_completes_class_names_from_tags_matching_namespaces() " {{{
     " completes classnames from subnamespaces
     let res = phpcomplete#CompleteGeneral('SUBNS\F', 'NS1', {})
     call VUAssertEquals([{'word': 'SUBNS\FooSub', 'kind': 'c', 'menu': ' - fixtures/CompleteGeneral/namespaced_foo.php', 'info': 'SUBNS\FooSub - fixtures/CompleteGeneral/namespaced_foo.php'}], res)
+
+
+    " stable ctags branch with no actual namespace information
+    exe ':set tags='.expand('%:p:h').'/'.'fixtures/CompleteGeneral/old_style_namespaced_tags'
+
+    " class names should be completed regardless of the namespaces,
+    " simply matching the word after the last \ segment
+    let res = phpcomplete#CompleteGeneral('\NS1\F', 'NS1', {})
+    call VUAssertEquals([
+                \ {'word': 'Foo', 'menu': ' - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'info': 'Foo - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'c'},
+                \ {'word': 'FooSub', 'menu': ' - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'info': 'FooSub - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'c'},
+                \ {'word': 'FooSubSub', 'menu': ' - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'info': 'FooSubSub - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'c'}],
+                \ res)
 endf " }}}
 
 fun! TestCase_completes_top_level_functions_from_tags_in_matching_namespaces() " {{{
@@ -311,6 +359,18 @@ fun! TestCase_completes_top_level_functions_from_tags_in_matching_namespaces() "
     call VUAssertEquals([
                 \ {'word': 'SUBNS\barsub(', 'info': 'SUBNS\barsub() - fixtures/CompleteGeneral/namespaced_foo.php', 'menu': ') - fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'f'}],
                 \ res)
+
+    " stable ctags branch with no actual namespace information
+    exe ':set tags='.expand('%:p:h').'/'.'fixtures/CompleteGeneral/old_style_namespaced_tags'
+
+    " functions should be completed regardless of the namespaces,
+    " simply matching the word after the last \ segment
+    let res = phpcomplete#CompleteGeneral('\NS1\ba', 'NS1', {})
+    call VUAssertEquals([
+                \ {'word': 'bar(', 'info': 'bar() - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'menu': ') - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'f'},
+                \ {'word': 'barsub(', 'info': 'barsub() - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'menu': ') - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'f'},
+                \ {'word': 'barsubsub(', 'info': 'barsubsub() - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'menu': ') - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'f'}],
+                \ res)
 endf " }}}
 
 fun! TestCase_completes_constants_from_tags_in_matching_namespaces() " {{{
@@ -334,6 +394,18 @@ fun! TestCase_completes_constants_from_tags_in_matching_namespaces() " {{{
                 \ {'word': 'SUBNS\ZAPSUB', 'menu': ' - fixtures/CompleteGeneral/namespaced_foo.php', 'info': 'SUBNS\ZAPSUB - fixtures/CompleteGeneral/namespaced_foo.php', 'kind': 'd'}],
                 \ res)
 
+    " stable ctags branch with no actual namespace information
+    exe ':set tags='.expand('%:p:h').'/'.'fixtures/CompleteGeneral/old_style_namespaced_tags'
+
+    " constants should be completed regardless of the namespaces,
+    " simply matching the word after the last \ segment
+    " leaves leading slash in
+    let res = phpcomplete#CompleteGeneral('\NS1\Z', 'NS1', {})
+    call VUAssertEquals([
+                \ {'word': 'ZAP', 'menu': ' - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_constants.php', 'info': 'ZAP - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_constants.php', 'kind': 'd'},
+                \ {'word': 'ZAPSUB', 'menu': ' - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_constants.php', 'info': 'ZAPSUB - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_constants.php', 'kind': 'd'},
+                \ {'word': 'ZAPSUBSUB', 'menu': ' - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_constants.php', 'info': 'ZAPSUBSUB - fixtures/CompleteGeneral/fixtures/CompleteGeneral/namespaced_constants.php', 'kind': 'd'}],
+                \ res)
 endf " }}}
 
 fun! TestCase_returns_completions_from_imported_names() " {{{
@@ -391,3 +463,5 @@ fun! TestCase_returns_tags_from_imported_namespaces() " {{{
                 \ {'word': 'SUB\SUBSUB\', 'menu': 'NS1\SUBNS\SUBSUB - fixtures/common/namespaced_foo.php', 'info': 'NS1\SUBNS\SUBSUB - fixtures/common/namespaced_foo.php', 'kind': 'n'}],
                 \ res)
 endf " }}}
+
+" vim: foldmethod=marker:expandtab:ts=4:sts=4

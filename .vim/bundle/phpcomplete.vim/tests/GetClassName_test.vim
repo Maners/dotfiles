@@ -133,8 +133,12 @@ fun! TestCase_finds_classes_from_variable_equals_new_class_lines()
     call VUAssertEquals('Bar\FooClass', classname)
 
     exe ':8'
-    let classname = phpcomplete#GetClassName(8, '$foo->', '\', {'RenamedFoo': {'name': 'OriginalFoo', 'kind': 'c', 'builtin':0,}})
+    let classname = phpcomplete#GetClassName(8, '$foo2->', '\', {'RenamedFoo': {'name': 'OriginalFoo', 'kind': 'c', 'builtin':0,}})
     call VUAssertEquals('OriginalFoo', classname)
+
+    exe ':12'
+    let classname = phpcomplete#GetClassName(12, '$foo3->', 'NS1', {})
+    call VUAssertEquals('NS2\Foo', classname)
 
     silent! bw! %
 endf
@@ -153,8 +157,12 @@ fun! TestCase_finds_common_singleton_getInstance_calls()
     call VUAssertEquals('Bar\FooClass', classname)
 
     exe ':8'
-    let classname = phpcomplete#GetClassName(8, '$foo->', '\', {'RenamedFoo': {'name': 'OriginalFoo', 'kind': 'c', 'builtin':0,}})
+    let classname = phpcomplete#GetClassName(8, '$foo2->', '\', {'RenamedFoo': {'name': 'OriginalFoo', 'kind': 'c', 'builtin':0,}})
     call VUAssertEquals('OriginalFoo', classname)
+
+    exe ':10'
+    let classname = phpcomplete#GetClassName(12, '$foo3->', 'NS1', {})
+    call VUAssertEquals('NS2\Foo', classname)
 
     silent! bw! %
 endf
@@ -197,6 +205,8 @@ endf
 fun! TestCase_returns_class_from_tags_with_tag_of_v_kind_and_a_new_equals_class_cmd()
     " see TAGS file in the tests/fixtures/GetClassName directory
     exe 'set tags='.expand('%:p:h')."/".'fixtures/GetClassName/TAGS'
+    " enable variable search in tags
+    let g:phpcomplete_search_tags_for_variables = 1
 
     let path = expand('%:p:h')."/"."fixtures/GetClassName/foo_only_from_tags.php"
     below 1new
@@ -543,3 +553,132 @@ fun! TestCase_handles_parent_keyword()
 
     silent! bw! %
 endf
+
+fun! TestCase_catch_clause()
+    let path = expand('%:p:h')."/"."fixtures/GetClassName/catch.php"
+
+    below 1new
+    exe ":silent! edit ".path
+    exe 'let b:phpbegin = [0, 0]'
+
+    exe ':5'
+    let classname = phpcomplete#GetClassName(5, '$e->', '\', {})
+    call VUAssertEquals('Exception', classname)
+
+    exe ':11'
+    let classname = phpcomplete#GetClassName(11, '$e->', '\', {})
+    call VUAssertEquals('NS\Exception', classname)
+
+    silent! bw! %
+endf
+
+fun! TestCase_builtin_function_return_type()
+    let g:php_builtin_functions = {
+        \ 'simplexml_load_string(': 'string $data [, string $class_name = "SimpleXMLElement" [, int $options = 0 [, string $ns = "" [, bool $is_prefix = false]]]] | SimpleXMLElement',
+        \}
+    let path = expand('%:p:h')."/"."fixtures/GetClassName/builtin_function.php"
+
+    below 1new
+    exe ":silent! edit ".path
+    exe 'let b:phpbegin = [0, 0]'
+
+    exe ':5'
+    let classname = phpcomplete#GetClassName(5, '$xml->', 'Foo', {})
+    call VUAssertEquals('SimpleXMLElement', classname)
+
+    silent! bw! %
+endf
+
+fun! TestCase_function_return_type()
+    let g:php_builtin_functions = {}
+    let path = expand('%:p:h')."/"."fixtures/GetClassName/function_return_type.php"
+    let tags_path = expand('%:p:h')."/".'fixtures/GetClassName/function_return_type_tags'
+    let old_style_tags_path = expand('%:p:h')."/".'fixtures/GetClassName/old_style_function_return_type_tags'
+    exe 'set tags='.tags_path
+
+    below 1new
+    exe ":silent! edit ".path
+    exe 'let b:phpbegin = [0, 0]'
+
+    exe ':29'
+    let classname = phpcomplete#GetClassName(29, '$foo->', 'Foo', {})
+    call VUAssertEquals('Foo\FooClass', classname)
+
+    exe ':32'
+    let classname = phpcomplete#GetClassName(32, '$foo2->', 'Foo', {'F': {'cmd': '/^class FooClass {$/', 'static': 0, 'name': 'FooClass', 'namespace': 'Foo', 'kind': 'c', 'builtin': 0, 'filename': 'fixtures/GetClassName/function_return_type.php'}})
+    call VUAssertEquals('Foo\FooClass', classname)
+
+    " the same should work with old style tags too, namespaces are extracted
+    " from the source
+    exe 'set tags='.old_style_tags_path
+    exe ':29'
+    let classname = phpcomplete#GetClassName(29, '$foo->', 'Foo', {})
+    call VUAssertEquals('Foo\FooClass', classname)
+
+    exe ':32'
+    let classname = phpcomplete#GetClassName(32, '$foo2->', 'Foo', {'F': {'cmd': '/^class FooClass {$/', 'static': 0, 'name': 'FooClass', 'kind': 'c', 'builtin': 0, 'filename': 'fixtures/GetClassName/function_return_type.php'}})
+    call VUAssertEquals('Foo\FooClass', classname)
+
+    silent! bw! %
+endf
+
+fun! TestCase_function_invocation_return_type()
+    let g:php_builtin_functions = {
+        \ 'simplexml_load_string(': 'string $data [, string $class_name = "SimpleXMLElement" [, int $options = 0 [, string $ns = "" [, bool $is_prefix = false]]]] | SimpleXMLElement',
+        \}
+    let path = expand('%:p:h')."/"."fixtures/GetClassName/function_return_type.php"
+    let tags_path = expand('%:p:h')."/".'fixtures/GetClassName/function_return_type_tags'
+    let old_style_tags_path = expand('%:p:h')."/".'fixtures/GetClassName/old_style_function_return_type_tags'
+
+    below 1new
+    exe ":silent! edit ".path
+    exe 'let b:phpbegin = [0, 0]'
+
+    " built-in function with class return type
+    exe ':35'
+    let classname = phpcomplete#GetClassName(35, 'simplexml_load_string()->', 'Foo', {})
+    call VUAssertEquals('SimpleXMLElement', classname)
+
+    exe ':38'
+    let classname = phpcomplete#GetClassName(38, 'make_a_foo()->', 'Foo', {})
+    call VUAssertEquals('Foo\FooClass', classname)
+
+    " renamed imports need tags to locate the renamed class
+    exe 'set tags='.tags_path
+    exe ':41'
+    let classname = phpcomplete#GetClassName(41, 'make_a_renamed_foo()->', 'Foo', {})
+    call VUAssertEquals('Foo\FooClass', classname)
+
+    " same import should work with old style tags too (namespace is ignored)
+    exe 'set tags='.old_style_tags_path
+    exe ':41'
+    let classname = phpcomplete#GetClassName(41, 'make_a_renamed_foo()->', 'Foo', {})
+    call VUAssertEquals('Foo\FooClass', classname)
+
+    silent! bw! %
+endf
+
+fun! TestCase_resolves_self_this_static_in_return_docblock()
+    let g:php_builtin_classes = {}
+    let g:php_builtin_classnames = {}
+    let path = expand('%:p:h')."/"."fixtures/GetClassName/self_return_type.php"
+    below 1new
+    exe ":silent! edit ".path
+    exe 'let b:phpbegin = [0, 0]'
+
+    exe ':32'
+    let classname = phpcomplete#GetClassName(32, '$b2->return_self()->', '', {})
+    call VUAssertEquals('Baz2', classname)
+
+    exe ':33'
+    let classname = phpcomplete#GetClassName(33, '$b2->return_this()->', '', {})
+    call VUAssertEquals('Baz2', classname)
+
+    exe ':34'
+    let classname = phpcomplete#GetClassName(34, '$b2->return_static()->', '', {})
+    call VUAssertEquals('Baz2', classname)
+
+    silent! bw! %
+endf
+
+" vim: foldmethod=marker:expandtab:ts=4:sts=4

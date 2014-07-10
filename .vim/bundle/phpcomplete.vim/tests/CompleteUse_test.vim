@@ -14,8 +14,17 @@ endf
 fun! TestCase_completes_builtin_classes()
     call SetUp()
     let g:php_builtin_classnames = {
-                \ 'ArrayAccess': '',
-                \ 'ArrayObject': '',
+                \ 'arrayaccess': '',
+                \ 'arrayobject': '',
+                \ }
+
+    let g:php_builtin_classes = {
+                \ 'arrayaccess':{
+                \   'name': 'ArrayAccess',
+                \ },
+                \ 'arrayobject':{
+                \   'name': 'ArrayObject',
+                \ },
                 \ }
 
     " returns every builtin class when nothing typed in
@@ -71,8 +80,16 @@ endf
 
 fun! TestCase_completes_namespaces_and_classes_from_tags_when_a_leading_namespace_is_already_typed_in()
     call SetUp()
-    exe ':set tags='.expand('%:p:h').'/'.'fixtures/CompleteUse/tags'
 
+    exe ':set tags='.expand('%:p:h').'/'.'fixtures/CompleteUse/tags'
+    let res = phpcomplete#CompleteUse('Assetic\Asset\Ba')
+    call VUAssertEquals([
+                \ {'word': 'Assetic\Asset\BaseAsset', 'menu': 'fixtures/CompleteUse/foo.php', 'info': 'fixtures/CompleteUse/foo.php', 'kind': 'c'}],
+                \ res)
+
+    " should complete tags matching the word after the last \ when no
+    " namespaces found in tags file
+    exe ':set tags='.expand('%:p:h').'/'.'fixtures/CompleteUse/old_style_tags'
     let res = phpcomplete#CompleteUse('Assetic\Asset\Ba')
     call VUAssertEquals([
                 \ {'word': 'Assetic\Asset\BaseAsset', 'menu': 'fixtures/CompleteUse/foo.php', 'info': 'fixtures/CompleteUse/foo.php', 'kind': 'c'}],
@@ -96,3 +113,5 @@ fun! TestCase_honors_the_min_num_of_chars_for_namespace_completion_setting_for_c
     let res = phpcomplete#CompleteUse('Assetic\Asset\Ba')
     call VUAssertEquals([], res)
 endf
+
+" vim: foldmethod=marker:expandtab:ts=4:sts=4

@@ -31,7 +31,6 @@ endf
 
 fun! TestCase_matches_classname_from_imported_names()
     call SetUp()
-    exe ':set tags='.expand('%:p:h').'/'.'fixtures/common/namespaced_foo_tags'
 
     " imported builtin
     let [classname, namespace] = phpcomplete#ExpandClassName('AO', 'Mahou', {'AO': {'name': 'ArrayObject', 'kind': 'c', 'builtin': 1,}})
@@ -55,3 +54,5 @@ fun! TestCase_matches_namespace_from_imported_names()
     let [classname, namespace] = phpcomplete#ExpandClassName('SUB\FooSub', 'Mahou', {'SUB': {'name': 'NS1\SUBNS', 'kind': 'n', 'builtin': 0,}})
     call VUAssertEquals(['FooSub', 'NS1\SUBNS'], [classname, namespace])
 endf
+
+" vim: foldmethod=marker:expandtab:ts=4:sts=4

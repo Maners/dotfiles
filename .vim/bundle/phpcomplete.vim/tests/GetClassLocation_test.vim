@@ -9,7 +9,7 @@ endf
 fun! TestCase_return_VIMPHP_BUILTINOBJECT_when_classname_in_builtin_classes()
     call SetUp()
 
-    let g:php_builtin_classnames = {'DateTime': ''}
+    let g:php_builtin_classnames = {'datetime': ''}
     let g:php_builtin_classes = {
                 \'datetime':{}
                 \}
@@ -40,9 +40,12 @@ endf
 
 fun! TestCase_return_class_location_from_tags()
     call SetUp()
-    exe ':set tags='.expand('%:p:h').'/'.'fixtures/GetClassLocation/tags'
 
+    let tags_path = expand('%:p:h').'/'.'fixtures/GetClassLocation/tags'
+    let old_style_tags_path = expand('%:p:h').'/'.'fixtures/GetClassLocation/old_style_tags'
     let path = expand('%:p:h').'/'.'fixtures/GetClassLocation/empty.php'
+
+    exe ':set tags='.tags_path
     below 1new
     exe ":silent! edit ".path
     exe ':3'
@@ -53,5 +56,16 @@ fun! TestCase_return_class_location_from_tags()
     let res = phpcomplete#GetClassLocation('FooInterface', '')
     call VUAssertEquals('fixtures/GetClassLocation/foo.class.php', res)
 
+    " when there are no namespaces to match for the classes from the tags file
+    " should return the first class's location where the name matches
+    exe ':set tags='.old_style_tags_path
+    let res = phpcomplete#GetClassLocation('Foo', '')
+    call VUAssertEquals('fixtures/GetClassLocation/foo.class.php', res)
+
+    let res = phpcomplete#GetClassLocation('FooInterface', '')
+    call VUAssertEquals('fixtures/GetClassLocation/foo.class.php', res)
+
     silent! bw! %
 endf
+
+" vim: foldmethod=marker:expandtab:ts=4:sts=4
