@@ -58,7 +58,7 @@ inoremap <C-Space> <C-x><C-o>
 " Map F3 to init vimgrep for current word in PHP files
 nmap <F3> :noautocmd vimgrep /<C-R><C-W>/j **/*.php
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
@@ -69,7 +69,7 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 " for PHP Documenter plugin
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
-"autocmd FileType php call SetPhpCTagsSyntax()
+autocmd FileType php call SetPhpCTagsSyntax()
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
@@ -81,7 +81,7 @@ highlight link phpDocTags Tag
 highlight link phpDocParam Type
 highlight link phpInterfaces Special
 
-"function SetPhpCTagsSyntax()
-"	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
-"	syn cluster phpClConst remove=phpMethodsVar
-"endfunction
+function SetPhpCTagsSyntax()
+	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
+	syn cluster phpClConst remove=phpMethodsVar
+endfunction
