@@ -31,3 +31,6 @@
 [submodule ".vim/bundle/vmustache.vim"]
 	path = .vim/bundle/vmustache.vim
 	url = https://github.com/tobyS/vmustache.git
+[submodule ".vim/bundle/taghighlight.vim"]
+	path = .vim/bundle/taghighlight.vim
+	url = https://github.com/abudden/taghighlight-automirror.git
