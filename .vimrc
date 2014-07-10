@@ -7,7 +7,7 @@ filetype plugin on
 " Enable syntax higlighting
 syntax enable
 
-" Other editor settings 
+" Other editor settings
 se nu " line numbers
 set backspace=2 " make backspace work like most other apps
 set cul " Turn on highlighting of current line
@@ -21,6 +21,12 @@ set shiftwidth=2
 set tabstop=2
 set smartindent
 
+" For easytags speed
+set regexpengine=1
+
+" Support continuation of multilne comments on newline
+set formatoptions+=or
+
 " Support ctags file in .git
 set tags+=.git/tags
 
@@ -29,7 +35,7 @@ let mapleader=","
 
 " Setup color scheme
 set t_Co=256
-colors molokai 
+colors molokai
 
 " Split window handling - highlight current line in active window
 augroup BgHighlight
@@ -57,19 +63,25 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 
-" Autocommands 
+" Autocommands
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 
 " for PHP Documenter plugin
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
-autocmd FileType php call SetPhpCTagsSyntax() 
+"autocmd FileType php call SetPhpCTagsSyntax()
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 nnoremap <silent><Leader>hw :match ExtraWhitespace /\s\+$/<CR>
 
-function SetPhpCTagsSyntax()
-	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
-	syn cluster phpClConst remove=phpMethodsVar
-endfunction
+" Highlight group correction for PHP
+highlight link phpMethodsVar Identifier
+highlight link phpDocTags Tag
+highlight link phpDocParam Type
+highlight link phpInterfaces Special
+
+"function SetPhpCTagsSyntax()
+"	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
+"	syn cluster phpClConst remove=phpMethodsVar
+"endfunction
