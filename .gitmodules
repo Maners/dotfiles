@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/tagbar.vim"]
 	path = .vim/bundle/tagbar.vim
 	url = git://github.com/majutsushi/tagbar
+[submodule ".vim/bundle/ultisnips.vim"]
+	path = .vim/bundle/ultisnips.vim
+	url = https://github.com/SirVer/ultisnips.git
