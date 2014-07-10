@@ -13,3 +13,6 @@
 [submodule ".vim/bundle/pdv.vim"]
 	path = .vim/bundle/pdv.vim
 	url = https://github.com/tobyS/pdv.git
+[submodule ".vim/bundle/php.vim"]
+	path = .vim/bundle/php.vim
+	url = https://github.com/StanAngeloff/php.vim.git
