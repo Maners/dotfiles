@@ -1,3 +1,6 @@
 [submodule ".vim/bundle/phpcomplete.vim"]
 	path = .vim/bundle/phpcomplete.vim
 	url = git://github.com/shawncplus/phpcomplete.vim.git
+[submodule ".vim/bundle/vdebug.vim"]
+	path = .vim/bundle/vdebug.vim
+	url = https://github.com/joonty/vdebug.git
