@@ -34,3 +34,6 @@
 [submodule ".vim/bundle/taghighlight.vim"]
 	path = .vim/bundle/taghighlight.vim
 	url = https://github.com/abudden/taghighlight-automirror.git
+[submodule ".vim/bundle/vim-fugitive.vim"]
+	path = .vim/bundle/vim-fugitive.vim
+	url = https://github.com/tpope/vim-fugitive.git
