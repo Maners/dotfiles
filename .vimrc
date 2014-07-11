@@ -67,7 +67,7 @@ map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . 
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 
 " for PHP Documenter plugin
-let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv/templates_snip"
+let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv.vim/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 
