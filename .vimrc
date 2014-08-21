@@ -14,11 +14,11 @@ set cul " Turn on highlighting of current line
 set exrc " per directory .vimrc
 set secure " disbale unsafe in local .vimrc
 
-" Set tabs - use tabs 2 columns wide
+" Set tabs - use tabs 4 columns wide
 " set expandtab
-set softtabstop=2
-set shiftwidth=2
-set tabstop=2
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
 set smartindent
 
 " For easytags speed
