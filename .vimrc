@@ -66,9 +66,6 @@ map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . 
 " Autocommands
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 
-" phpcomplete bug work-around
-let g:phpcomplete_enhance_jump_to_definition = 0
-
 " for PHP Documenter plugin
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv.vim/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
