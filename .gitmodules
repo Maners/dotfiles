@@ -37,3 +37,6 @@
 [submodule ".vim/bundle/vim-fugitive.vim"]
 	path = .vim/bundle/vim-fugitive.vim
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/sideways.vim"]
+	path = .vim/bundle/sideways.vim
+	url = https://github.com/AndrewRadev/sideways.vim.git

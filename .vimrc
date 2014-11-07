@@ -81,6 +81,9 @@ highlight link phpDocTags Tag
 highlight link phpDocParam Type
 highlight link phpInterfaces Special
 
+" Syntatic - set phpcs to PSR-2, turnoff design rule for phpmd
+let g:syntastic_php_phpcs_args="--report=csv --standard=PSR2"
+
 function SetPhpCTagsSyntax()
 	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
 	syn cluster phpClConst remove=phpMethodsVar
