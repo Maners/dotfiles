@@ -6,4 +6,4 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific aliases and functions
-alias phptags='ctags -R --languages=PHP --tag-relative=yes --PHP-kinds=+cfid --exclude=".git" --fields=+aimSl'
+alias phptags='~/bin/ctags -R --languages=PHP --tag-relative=yes --PHP-kinds=+cfidn --exclude=".git" --fields=+aimSl'
