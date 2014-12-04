@@ -40,3 +40,6 @@
 [submodule ".vim/bundle/sideways.vim"]
 	path = .vim/bundle/sideways.vim
 	url = https://github.com/AndrewRadev/sideways.vim.git
+[submodule ".vim/bundle/php-getter-setter.vim"]
+	path = .vim/bundle/php-getter-setter.vim
+	url = https://github.com/docteurklein/php-getter-setter.vim.git
