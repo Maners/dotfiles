@@ -67,6 +67,12 @@ map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . 
 " Autocommands
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 
+" YouCompleteMe
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = $HOME . "/.vim/ycm_extra_conf.py"
+let g:ycm_extra_conf_vim_data = ['&filetype']
+let g:ycm_seed_identifiers_with_syntax = 1
+
 " for PHP Documenter plugin
 let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv.vim/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
