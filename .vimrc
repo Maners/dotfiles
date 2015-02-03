@@ -7,6 +7,10 @@ filetype plugin on
 " Enable syntax higlighting
 syntax enable
 
+if has('gui_running')
+    set guifont=Inconsolata\ Medium\ 11
+endif
+
 " Other editor settings
 se nu " line numbers
 set backspace=2 " make backspace work like most other apps
