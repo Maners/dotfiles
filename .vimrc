@@ -26,9 +26,6 @@ set tabstop=4
 set smartindent
 set expandtab
 
-" For easytags speed
-set regexpengine=1
-
 " Support continuation of multilne comments on newline
 set formatoptions+=or
 
