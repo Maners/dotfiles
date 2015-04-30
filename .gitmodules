@@ -50,3 +50,6 @@
 [submodule ".vim/bundle/matchit"]
 	path = .vim/bundle/matchit
 	url = https://github.com/tmhedberg/matchit.git
+[submodule ".vim/bundle/gtags.vim"]
+	path = .vim/bundle/gtags.vim
+	url = https://github.com/vim-scripts/gtags.vim.git
