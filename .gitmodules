@@ -53,3 +53,6 @@
 [submodule ".vim/bundle/gtags.vim"]
 	path = .vim/bundle/gtags.vim
 	url = https://github.com/vim-scripts/gtags.vim.git
+[submodule ".vim/bundle/ycm-generator.vim"]
+	path = .vim/bundle/ycm-generator.vim
+	url = https://github.com/rdnetto/YCM-Generator.git
