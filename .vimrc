@@ -52,7 +52,8 @@ imap jj <Esc>
 " Map \C-] to open reference in new tab
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
-nnoremap <Leader>. :CtrlPTag<CR>
+nnoremap <Leader>t :CtrlPTag<CR>
+nnoremap <Leader>p :CtrlP<CR>
 nnoremap <silent><Leader>b :TagbarToggle<CR>
 nnoremap <silent><Leader>f :NERDTreeToggle<CR>
 
