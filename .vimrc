@@ -1,8 +1,21 @@
-" Pathogen
-filetype off
-call pathogen#infect()
-call pathogen#helptags() " generate helptags for everything in runtimepath
-filetype plugin on
+" vim-plug
+call plug#begin('~/.vim/plugged')
+
+Plug 'abudden/taghighlight-automirror'
+Plug 'Valloric/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
+Plug 'benekastah/neomake'
+
+Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
+
+Plug 'shawncplus/phpcomplete.vim'
+Plug 'StanAngeloff/php.vim'
+
+Plug '~/.vim/custom/molokai.colorscheme'
+
+call plug#end()
 
 " Enable syntax higlighting
 syntax enable
@@ -47,16 +60,12 @@ augroup BgHighlight
 augroup END
 
 " Keyborad bindings
-" Map jj to exit insert mode
 imap jj <Esc>
-" Map \C-] to open reference in new tab
-nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 
 nnoremap <Leader>t :CtrlPTag<CR>
 nnoremap <Leader>p :CtrlP<CR>
 nnoremap <silent><Leader>b :TagbarToggle<CR>
 nnoremap <silent><Leader>f :NERDTreeToggle<CR>
-
 inoremap <C-Space> <C-x><C-o>
 " Map F3 to init vimgrep for current word in PHP files
 nmap <F3> :noautocmd vimgrep /<C-R><C-W>/j **/*.php
@@ -76,7 +85,7 @@ let g:ycm_extra_conf_vim_data = ['&filetype']
 let g:ycm_seed_identifiers_with_syntax = 1
 
 " for PHP Documenter plugin
-let g:pdv_template_dir = $HOME . "/.vim/bundle/pdv.vim/templates_snip"
+let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 
@@ -90,8 +99,9 @@ highlight link phpDocTags Tag
 highlight link phpDocParam Type
 highlight link phpInterfaces Special
 
-" Syntatic - set phpcs to PSR-2, turnoff design rule for phpmd
-let g:syntastic_php_phpcs_args="--report=csv --standard=PSR2"
+" Neomake
+let g:neomake_php_phpcs_args_standard="PSR2"
+autocmd! BufWritePost * Neomake
 
 function SetPhpCTagsSyntax()
 	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace

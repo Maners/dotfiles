@@ -10,6 +10,9 @@ function doIt() {
 		done
 #    rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
 #            --exclude "README.md" --exclude "LICENSE-MIT.txt" -av --no-perms . ~
+# for neovim
+    ln -s ~/.vim ~/.config/nvim
+    ln -s ~/.vimrc ~/.config/init.nvim
     source ~/.bash_profile
 }
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
