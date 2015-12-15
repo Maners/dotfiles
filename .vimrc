@@ -7,6 +7,7 @@ Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'benekastah/neomake'
+Plug 'tpope/vim-fugitive'
 
 Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
 
