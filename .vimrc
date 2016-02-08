@@ -15,6 +15,7 @@ Plug 'shawncplus/phpcomplete.vim'
 Plug 'StanAngeloff/php.vim'
 
 Plug '~/.vim/custom/molokai.colorscheme'
+Plug 'mhinz/vim-grepper'
 
 call plug#end()
 
@@ -33,7 +34,6 @@ set exrc " per directory .vimrc
 set secure " disbale unsafe in local .vimrc
 
 " Set tabs - use tabs 4 columns wide
-" set expandtab
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
