@@ -64,7 +64,6 @@ augroup END
 
 " Keyborad bindings
 imap jj <Esc>
-
 nnoremap <Leader>t :CtrlPTag<CR>
 nnoremap <Leader>p :CtrlP<CR>
 nnoremap <silent><Leader>b :TagbarToggle<CR>
@@ -72,11 +71,14 @@ nnoremap <silent><Leader>f :NERDTreeToggle<CR>
 inoremap <C-Space> <C-x><C-o>
 " Map F3 to init vimgrep for current word in PHP files
 nmap <F3> :noautocmd vimgrep /<C-R><C-W>/j **/*.php
-
 map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
+" hjkl in insert mode
+inoremap <c-k> <up> 
+inoremap <c-j> <down> 
+inoremap <c-h> <left> 
+inoremap <c-l> <right> 
 
 " Autocommands
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
