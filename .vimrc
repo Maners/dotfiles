@@ -13,6 +13,8 @@ Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
 
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'StanAngeloff/php.vim'
+Plug 'evidens/vim-twig'
+Plug 'arnaud-lb/vim-php-namespace'
 
 Plug '~/.vim/custom/molokai.colorscheme'
 Plug 'mhinz/vim-grepper'
@@ -89,6 +91,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
@@ -107,4 +111,9 @@ autocmd! BufWritePost * Neomake
 function SetPhpCTagsSyntax()
 	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
 	syn cluster phpClConst remove=phpMethodsVar
+endfunction
+
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
 endfunction
