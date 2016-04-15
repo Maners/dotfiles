@@ -5,5 +5,8 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
 # User specific aliases and functions
-alias phptags='~/.local/bin/ctags -R --languages=PHP --tag-relative=yes --PHP-kinds=+cfidn --exclude=".git" --fields=+aimSl'
+alias phptags='ctags -R --languages=PHP --tag-relative=yes --PHP-kinds=+cfidn --exclude=".git" --fields=+aimSl'
