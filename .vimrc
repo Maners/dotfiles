@@ -70,9 +70,7 @@ nnoremap <Leader>p :CtrlP<CR>
 nnoremap <silent><Leader>b :TagbarToggle<CR>
 nnoremap <silent><Leader>f :NERDTreeToggle<CR>
 inoremap <C-Space> <C-x><C-o>
-" Map F3 to init vimgrep for current word in PHP files
-nmap <F3> :noautocmd vimgrep /<C-R><C-W>/j **/*.php
-nnoremap <leader>*   :Grepper -tool ag -cword -noprompt -grepprg ag --vimgrep -G '^.+\.*'
+nnoremap <Leader>* :Grepper -tool ag -cword -noprompt -grepprg ag --vimgrep -G '^.+\.*'
 
 map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
