@@ -15,6 +15,10 @@ Plug 'shawncplus/phpcomplete.vim'
 Plug 'StanAngeloff/php.vim'
 Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
+Plug 'docteurklein/php-getter-setter.vim'
+
+Plug 'eshion/vim-sync'
+
 
 Plug '~/.vim/custom/molokai.colorscheme'
 Plug 'mhinz/vim-grepper'
