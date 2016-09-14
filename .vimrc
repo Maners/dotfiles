@@ -2,7 +2,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'abudden/taghighlight-automirror'
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --system-boost --clang-completer'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
