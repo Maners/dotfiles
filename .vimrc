@@ -19,9 +19,10 @@ Plug 'docteurklein/php-getter-setter.vim'
 
 Plug 'eshion/vim-sync'
 
-
 Plug '~/.vim/custom/molokai.colorscheme'
 Plug 'mhinz/vim-grepper'
+
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
