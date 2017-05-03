@@ -5,24 +5,29 @@ Plug 'abudden/taghighlight-automirror'
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 Plug 'scrooloose/nerdtree'
-Plug 'kien/ctrlp.vim'
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-grepper'
+Plug 'eshion/vim-sync'
+Plug 'navicore/vissort.vim'
+Plug '~/.vim/custom/molokai.colorscheme'
 
 Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
 
+" PHP plugins
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'StanAngeloff/php.vim'
 Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'docteurklein/php-getter-setter.vim'
 
-Plug 'eshion/vim-sync'
+" C plugins
+Plug 'jeaye/color_coded'
 
-Plug '~/.vim/custom/molokai.colorscheme'
-Plug 'mhinz/vim-grepper'
-
+" Rust
 Plug 'rust-lang/rust.vim'
+
+
 
 call plug#end()
 
