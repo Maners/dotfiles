@@ -35,7 +35,7 @@ call plug#end()
 syntax enable
 
 if has('gui_running')
-    set guifont=Inconsolata\ Medium\ 11
+    set guifont=Inconsolata\ Medium\ 12
 endif
 
 " Other editor settings
@@ -80,15 +80,12 @@ nnoremap <Leader>p :CtrlP<CR>
 nnoremap <silent><Leader>b :TagbarToggle<CR>
 nnoremap <silent><Leader>f :NERDTreeToggle<CR>
 inoremap <C-Space> <C-x><C-o>
-nnoremap <Leader>* :Grepper -tool ag -cword -noprompt -grepprg ag --vimgrep -G '^.+\.*'
+nnoremap <Leader>* :Grepper -tool ag -open -switch -cword -noprompt -grepprg ag --vimgrep -G '^.+\.*'
 
 map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-
-" Autocommands
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 
 " YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
@@ -96,12 +93,24 @@ let g:ycm_global_ycm_extra_conf = $HOME . "/.vim/ycm_extra_conf.py"
 let g:ycm_extra_conf_vim_data = ['&filetype']
 let g:ycm_seed_identifiers_with_syntax = 1
 
-" for PHP Documenter plugin
+" Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
+let g:neomake_php_phpcs_args_standard="PSR2"
+
+function SetPhpCTagsSyntax()
+	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
+	syn cluster phpClConst remove=phpMethodsVar
+endfunction
+
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
@@ -114,15 +123,5 @@ highlight link phpDocParam Type
 highlight link phpInterfaces Special
 
 " Neomake
-let g:neomake_php_phpcs_args_standard="PSR2"
 autocmd! BufWritePost * Neomake
 
-function SetPhpCTagsSyntax()
-	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
-	syn cluster phpClConst remove=phpMethodsVar
-endfunction
-
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
-endfunction
