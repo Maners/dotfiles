@@ -8,9 +8,7 @@ function doIt() {
         rm -rf ~/$file
         ln -sf $dir/$file ~/$file
     done
-# for neovim
-    ln -sf ~/.vim ~/.config/nvim
-    ln -sf ~/.vimrc ~/.config/nvim/init.vim
+
     source ~/.bash_profile
 }
 
