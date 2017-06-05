@@ -11,6 +11,8 @@ Plug 'mhinz/vim-grepper'
 Plug 'eshion/vim-sync'
 Plug 'navicore/vissort.vim'
 Plug '~/.vim/custom/molokai.colorscheme'
+Plug 'vim-airline/vim-airline'
+Plug 'altercation/vim-colors-solarized'
 
 Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
 
@@ -27,12 +29,15 @@ Plug 'jeaye/color_coded'
 " Rust
 Plug 'rust-lang/rust.vim'
 
-
-
 call plug#end()
 
 " Enable syntax higlighting
 syntax enable
+
+" Setup color scheme
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 if has('gui_running')
     set guifont=Inconsolata\ Medium\ 12
@@ -61,9 +66,11 @@ set tags+=.git/tags
 " Set leader key to ,
 let mapleader=","
 
-" Setup color scheme
-set t_Co=256
-colors molokai
+
+" Airline setup
+set laststatus=2
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled=1
 
 " Split window handling - highlight current line in active window
 augroup BgHighlight
