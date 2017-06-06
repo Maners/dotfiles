@@ -12,7 +12,7 @@ Plug 'eshion/vim-sync'
 Plug 'navicore/vissort.vim'
 Plug '~/.vim/custom/molokai.colorscheme'
 Plug 'vim-airline/vim-airline'
-Plug 'altercation/vim-colors-solarized'
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
 
@@ -22,9 +22,6 @@ Plug 'StanAngeloff/php.vim'
 Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'docteurklein/php-getter-setter.vim'
-
-" C plugins
-Plug 'jeaye/color_coded'
 
 " Rust
 Plug 'rust-lang/rust.vim'

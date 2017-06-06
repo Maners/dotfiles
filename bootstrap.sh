@@ -9,6 +9,15 @@ function doIt() {
         ln -sf $dir/$file ~/$file
     done
 
+    nvim_config="$HOME/.config/nvim/init.vim"
+    mkdir -p $(dirname "${nvim_config}")
+
+    cat <<EOM > $nvim_config
+set runtimepath+=~/.vim,~/.vim/after
+set packpath+=~/.vim
+set termguicolors
+source ~/.vimrc
+EOM
     source ~/.bash_profile
 }
 
