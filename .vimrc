@@ -30,9 +30,9 @@ call plug#end()
 
 " Enable syntax higlighting
 syntax enable
-set mouse=a
 
-if has('neovim')
+if has('nvim')
+    set mouse=a
     set termguicolors
 endif
 
