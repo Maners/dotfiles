@@ -15,7 +15,6 @@ function doIt() {
     cat <<EOM > $nvim_config
 set runtimepath+=~/.vim,~/.vim/after
 set packpath+=~/.vim
-set termguicolors
 source ~/.vimrc
 EOM
     source ~/.bash_profile

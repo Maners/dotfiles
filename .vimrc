@@ -30,6 +30,11 @@ call plug#end()
 
 " Enable syntax higlighting
 syntax enable
+set mouse=a
+
+if has('neovim')
+    set termguicolors
+endif
 
 " Setup color scheme
 set background=dark
@@ -90,6 +95,15 @@ map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . 
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
