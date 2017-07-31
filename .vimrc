@@ -90,6 +90,7 @@ nnoremap <silent><Leader>b :TagbarToggle<CR>
 nnoremap <silent><Leader>f :NERDTreeToggle<CR>
 inoremap <C-Space> <C-x><C-o>
 nnoremap <Leader>* :Grepper -tool ag -open -switch -cword -noprompt -grepprg ag --vimgrep -G '^.+\.*'
+vnoremap <Leader>m :s/\s*\\$/\=repeat(' ', 80-col('.')).'\'
 
 map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
