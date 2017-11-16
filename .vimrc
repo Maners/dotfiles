@@ -106,6 +106,8 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
+
 " YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf = $HOME . "/.vim/ycm_extra_conf.py"
