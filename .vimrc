@@ -2,8 +2,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'abudden/taghighlight-automirror'
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
-Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/nerdtree'
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-fugitive'
@@ -17,14 +16,18 @@ Plug 'frankier/neovim-colors-solarized-truecolor-only'
 Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
 
 " PHP plugins
-Plug 'shawncplus/phpcomplete.vim'
+Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'StanAngeloff/php.vim'
 Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'docteurklein/php-getter-setter.vim'
 
+" C
+Plug 'zchee/deoplete-clang'
+
 " Rust
 Plug 'rust-lang/rust.vim'
+Plug 'sebastianmarkow/deoplete-rust'
 
 call plug#end()
 
@@ -107,31 +110,26 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
 nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
+inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
 
-" YouCompleteMe
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = $HOME . "/.vim/ycm_extra_conf.py"
-let g:ycm_extra_conf_vim_data = ['&filetype']
-let g:ycm_seed_identifiers_with_syntax = 1
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
+
+" Deoplete Rust
+let g:deoplete#sources#rust#racer_binary = '/home/maners/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = '/home/maners/projects/rust-src/src'
 
 " Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
+let g:neomake_php_phpcs_args_standard="PSR2"
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
-let g:neomake_php_phpcs_args_standard="PSR2"
-
-function SetPhpCTagsSyntax()
-	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
-	syn cluster phpClConst remove=phpMethodsVar
-endfunction
-
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
-endfunction
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
@@ -146,3 +144,13 @@ highlight link phpInterfaces Special
 " Neomake
 autocmd! BufWritePost * Neomake
 
+" PHP Functions
+function SetPhpCTagsSyntax()
+	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
+	syn cluster phpClConst remove=phpMethodsVar
+endfunction
+
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
