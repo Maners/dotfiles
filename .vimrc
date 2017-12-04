@@ -9,7 +9,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-grepper'
 Plug 'eshion/vim-sync'
 Plug 'navicore/vissort.vim'
-Plug '~/.vim/custom/molokai.colorscheme'
 Plug 'vim-airline/vim-airline'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
@@ -71,11 +70,13 @@ set tags+=.git/tags
 " Set leader key to ,
 let mapleader=","
 
-
 " Airline setup
 set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger = '<c-j>'
 
 " Split window handling - highlight current line in active window
 augroup BgHighlight
@@ -119,8 +120,8 @@ let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
 " Deoplete Rust
-let g:deoplete#sources#rust#racer_binary = '/home/maners/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = '/home/maners/projects/rust-src/src'
+let g:deoplete#sources#rust#racer_binary = '~/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = '~/projects/rust-src/src'
 
 " Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
