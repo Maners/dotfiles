@@ -2,7 +2,13 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'abudden/taghighlight-automirror'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'scrooloose/nerdtree'
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-fugitive'
@@ -20,6 +26,7 @@ Plug 'StanAngeloff/php.vim'
 Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'docteurklein/php-getter-setter.vim'
+Plug 'joonty/vdebug'
 
 " C
 Plug 'zchee/deoplete-clang'
@@ -75,9 +82,6 @@ set laststatus=2
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger = '<c-j>'
-
 " Split window handling - highlight current line in active window
 augroup BgHighlight
 	autocmd!
@@ -111,7 +115,6 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
 nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
-inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -130,7 +133,6 @@ autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP " for PHP
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
