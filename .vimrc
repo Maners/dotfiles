@@ -128,7 +128,8 @@ let g:deoplete#sources#rust#rust_source_path = '~/opt/rust-src/src'
 
 " Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
-let g:neomake_php_phpcs_args_standard="PSR2"
+let g:neomake_php_phpcs_args_standard = "PSR2"
+let g:phpcomplete_parse_docblock_comments = 1
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
