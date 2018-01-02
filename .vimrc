@@ -35,6 +35,9 @@ Plug 'zchee/deoplete-clang'
 Plug 'rust-lang/rust.vim'
 Plug 'sebastianmarkow/deoplete-rust'
 
+" Java
+Plug 'artur-shaik/vim-javacomplete2'
+
 call plug#end()
 
 " Enable syntax higlighting
@@ -134,6 +137,9 @@ autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+
+" Java
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
