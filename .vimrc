@@ -124,7 +124,7 @@ let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
 " Deoplete Rust
 let g:deoplete#sources#rust#racer_binary = '~/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = '~/projects/rust-src/src'
+let g:deoplete#sources#rust#rust_source_path = '~/opt/rust-src/src'
 
 " Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
