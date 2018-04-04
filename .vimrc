@@ -27,13 +27,16 @@ Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'docteurklein/php-getter-setter.vim'
 Plug 'joonty/vdebug'
+Plug 'shawncplus/phpcomplete.vim'
 
 " C
 Plug 'zchee/deoplete-clang'
 
 " Rust
 Plug 'rust-lang/rust.vim'
-Plug 'sebastianmarkow/deoplete-rust'
+if has('nvim')
+    Plug 'sebastianmarkow/deoplete-rust'
+endif
 
 " Java
 Plug 'artur-shaik/vim-javacomplete2'
@@ -126,8 +129,10 @@ let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
 " Deoplete Rust
-let g:deoplete#sources#rust#racer_binary = '~/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = '~/opt/rust-src/src'
+if has('nvim')
+    let g:deoplete#sources#rust#racer_binary = '~/.cargo/bin/racer'
+    let g:deoplete#sources#rust#rust_source_path = '~/opt/rust-src/src'
+endif
 
 " Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
