@@ -130,8 +130,8 @@ let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
 " Deoplete Rust
 if has('nvim')
-    let g:deoplete#sources#rust#racer_binary = '~/.cargo/bin/racer'
-    let g:deoplete#sources#rust#rust_source_path = '~/opt/rust-src/src'
+    let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
+    let g:deoplete#sources#rust#rust_source_path = $HOME.'/opt/rust-src/src'
 endif
 
 " Configure PHP plugins
