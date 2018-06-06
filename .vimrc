@@ -16,9 +16,10 @@ Plug 'mhinz/vim-grepper'
 Plug 'eshion/vim-sync'
 Plug 'navicore/vissort.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
-
+Plug 'icymind/NeoSolarized'
 Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/spec.vim'
 
 " PHP plugins
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
@@ -53,8 +54,7 @@ endif
 
 " Setup color scheme
 set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme NeoSolarized
 
 if has('gui_running')
     set guifont=Inconsolata\ Medium\ 12
