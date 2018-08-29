@@ -159,6 +159,9 @@ highlight link phpInterfaces Special
 " Neomake
 autocmd! BufWritePost * Neomake
 
+" Auto-close preview window after completion done
+autocmd CompleteDone * pclose
+
 " PHP Functions
 function SetPhpCTagsSyntax()
 	syn cluster phpClTop add=CTagsFunction,CTagsClass,CTagsInterface,CTagsGlobalConstant,CTagsGlobalVariable,CTagsNamespace
