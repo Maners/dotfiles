@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-files=".vimrc .vim .bashrc"
+files=".vimrc .vim .bashrc .tmux.conf"
 dir=`"pwd"`
 
 function doIt() {
