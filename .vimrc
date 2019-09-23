@@ -20,6 +20,7 @@ Plug 'icymind/NeoSolarized'
 Plug 'SirVer/ultisnips' | Plug 'tobyS/vmustache' | Plug 'tobyS/pdv'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'vim-scripts/spec.vim'
+Plug 'majutsushi/tagbar'
 
 " PHP plugins
 Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
@@ -31,7 +32,7 @@ Plug 'joonty/vdebug'
 Plug 'shawncplus/phpcomplete.vim'
 
 " C
-Plug 'zchee/deoplete-clang'
+Plug 'Shougo/deoplete-clangx'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -103,7 +104,7 @@ nnoremap <Leader>p :CtrlP<CR>
 nnoremap <silent><Leader>b :TagbarToggle<CR>
 nnoremap <silent><Leader>f :NERDTreeToggle<CR>
 inoremap <C-Space> <C-x><C-o>
-nnoremap <Leader>* :Grepper -tool ag -open -switch -cword -noprompt -grepprg ag --vimgrep -G '^.+\.*'
+nnoremap <Leader>* :Grepper -tool git -open -switch -cword -noprompt -grepprg git grep -nI
 vnoremap <Leader>m :s/\s*\\$/\=repeat(' ', 80-col('.')).'\'
 
 map <Leader><F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -125,8 +126,6 @@ nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
 " Deoplete Rust
 if has('nvim')
