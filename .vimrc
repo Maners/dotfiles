@@ -23,7 +23,6 @@ Plug 'vim-scripts/spec.vim'
 Plug 'majutsushi/tagbar'
 
 " PHP plugins
-Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'StanAngeloff/php.vim'
 Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
@@ -135,7 +134,8 @@ endif
 
 " Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
-let g:neomake_php_phpcs_args_standard = "PSR2"
+let g:neomake_php_phpcs_args_standard = "PSR12"
+let g:neomake_phpstan_level = "5"
 let g:phpcomplete_parse_docblock_comments = 1
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
