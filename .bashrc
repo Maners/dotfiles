@@ -9,7 +9,7 @@ fi
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
-alias phptags='ctags -R --languages=PHP --PHP-kinds=-a --tag-relative=yes --exclude=".git" --fields=+aimSlZ'
+alias phptags='ctags -R --languages=PHP --kinds-PHP=-a --tag-relative=yes --exclude=".git" --fields=+aimSl'
 
 if [ -f `which powerline-daemon` ]; then
   powerline-daemon -q
