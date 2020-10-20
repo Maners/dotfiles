@@ -74,6 +74,9 @@ set tabstop=4
 set smartindent
 set expandtab
 
+" Deal with Windows newline
+match Ignore /\r$/
+
 " Support continuation of multilne comments on newline
 set formatoptions+=or
 
@@ -124,7 +127,6 @@ nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_start_length = 1
 
 " Deoplete Rust
 if has('nvim')
@@ -134,9 +136,10 @@ endif
 
 " Configure PHP plugins
 let g:pdv_template_dir = $HOME . "/.vim/plugged/pdv/templates_snip"
-let g:neomake_php_phpcs_args_standard = "PSR12"
+let g:neomake_php_phpcs_args_standard = "PSR2"
 let g:neomake_phpstan_level = "5"
 let g:phpcomplete_parse_docblock_comments = 1
+let g:php_namespace_sort_after_insert = 1
 autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 autocmd FileType php call SetPhpCTagsSyntax()
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
