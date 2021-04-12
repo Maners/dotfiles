@@ -1,6 +1,6 @@
 {
     "config": {
-        "bin-dir": "~/.local/bin"},
+    },
     "repositories": {
         "datto": {
             "type": "composer",
