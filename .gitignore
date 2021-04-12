@@ -2,3 +2,7 @@ tags
 *.pyc
 plugged
 .vim/init.vim
+.vim/autoload/plug.vim.old
+.config/composer
+!.config/composer/composer.json
+!.config/composer/config.json
