@@ -28,7 +28,7 @@ Plug 'evidens/vim-twig'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'docteurklein/php-getter-setter.vim'
 Plug 'joonty/vdebug'
-Plug 'shawncplus/phpcomplete.vim'
+Plug 'shawncplus/phpcomplete.vim', { 'tag': 'vim7' }
 
 " C
 Plug 'Shougo/deoplete-clangx'
