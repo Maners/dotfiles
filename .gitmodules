@@ -1,0 +1,4 @@
+[submodule "phpactor"]
+	path = phpactor
+	url = https://github.com/phpactor/phpactor.git
+	branch = master
