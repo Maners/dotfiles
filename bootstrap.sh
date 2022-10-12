@@ -19,10 +19,11 @@ function installDependencies() {
         sudo dnf -y install curl
     fi
 
+    if ! rpm -q --quiet python3-lsp-server; then
+        sudo dnf -y install python3-lsp-server
+    fi
+
     composer config --global bin-dir $BIN_HOME
-    composer config --global data-dir $XDG_DATA_HOME/composer/data
-    composer config --global vendor-dir $XDG_DATA_HOME/composer/vendor
-    composer config --global cache-dir $XDG_CACHE_HOME/composer
 
     composer global -d $DOTFILES/phpactor install
     composer global require phpstan/phpstan
