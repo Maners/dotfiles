@@ -5,22 +5,28 @@ XDG_DATA_HOME=${XDG_DATA_HOME:="$HOME/.local/share"}
 XDG_CACHE_HOME=${XDG_CACHE_HOME:="$HOME/.cache"}
 BIN_HOME="$HOME/.local/bin"
 DOTFILES=$PWD
+PYTHON="python3.10" # python version for venv
 
 function prepareEnvironment() {
     export COMPOSER_HOME="$XDG_CONFIG_HOME/composer"
 }
 
-function installDependencies() {
-    if ! rpm -q --quiet composer; then
-        sudo dnf -y install composer
-    fi 
+function installAndConfigurePythonTools() {
+    TOOLS="$XDG_DATA_HOME/python-venvs/vim"
 
-    if ! rpm -q --quiet curl; then
-        sudo dnf -y install curl
+    if ! rpm -q --quiet $PYTHON; then
+        sudo dnf -y install $PYTHON
     fi
 
-    if ! rpm -q --quiet python3-lsp-server; then
-        sudo dnf -y install python3-lsp-server
+    rm -r $TOOLS
+    $PYTHON -m venv --system-site-packages $TOOLS
+    $TOOLS/bin/pip install "python-lsp-server[all]" "pylsp-mypy"
+    ln -sf $TOOLS/bin/pylsp $BIN_HOME/pylsp
+}
+
+function installAndConfigurePHPTools() {
+    if ! rpm -q --quiet composer; then
+        sudo dnf -y install composer
     fi
 
     composer config --global bin-dir $BIN_HOME
@@ -29,7 +35,15 @@ function installDependencies() {
     composer global require phpstan/phpstan
 
     ln -sf $DOTFILES/phpactor/bin/phpactor $BIN_HOME/phpactor
+}
 
+function installDependencies() {
+    if ! rpm -q --quiet curl; then
+        sudo dnf -y install curl
+    fi
+
+    installAndConfigurePHPTools
+    installAndConfigurePythonTools
 }
 
 function applyDattoCustomizations() {
