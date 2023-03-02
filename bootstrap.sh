@@ -5,7 +5,6 @@ XDG_DATA_HOME=${XDG_DATA_HOME:="$HOME/.local/share"}
 XDG_CACHE_HOME=${XDG_CACHE_HOME:="$HOME/.cache"}
 BIN_HOME="$HOME/.local/bin"
 DOTFILES=$PWD
-PYTHON="python3.10" # python version for venv
 
 function prepareEnvironment() {
     export COMPOSER_HOME="$XDG_CONFIG_HOME/composer"
@@ -20,17 +19,6 @@ function installSystemPackage()
     fi
 }
 
-function installAndConfigurePythonTools() {
-    TOOLS="$XDG_DATA_HOME/python-venvs/vim"
-
-    installSystemPackage $PYTHON
-
-    rm -r $TOOLS
-    $PYTHON -m venv --system-site-packages $TOOLS
-    $TOOLS/bin/pip install "python-lsp-server[all]" "pylsp-mypy"
-    ln -sf $TOOLS/bin/pylsp $BIN_HOME/pylsp
-}
-
 function installAndConfigurePHPTools() {
     installSystemPackage "composer"
 
@@ -43,7 +31,6 @@ function installDependencies() {
     installSystemPackage "nodejs" # for CoC plugin
 
     installAndConfigurePHPTools
-    installAndConfigurePythonTools
 }
 
 function applyDattoCustomizations() {
