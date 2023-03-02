@@ -17,7 +17,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-grepper'
 Plug 'eshion/vim-sync'
 Plug 'vim-airline/vim-airline'
-Plug 'icymind/NeoSolarized'
+Plug 'sainnhe/everforest'
 Plug 'ruanyl/vim-gh-line'
 
 " Rust
@@ -29,8 +29,13 @@ call plug#end()
 syntax enable
 
 " Setup color scheme
+if has('termguicolors')
+    set termguicolors
+endif
 set background=dark
-colorscheme NeoSolarized
+let g:everforest_better_performance = 1
+let g:everforest_background = 'soft'
+colorscheme everforest
 
 if has('gui_running')
     set guifont=Inconsolata\ Medium\ 12
