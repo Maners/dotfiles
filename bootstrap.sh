@@ -11,12 +11,19 @@ function prepareEnvironment() {
     export COMPOSER_HOME="$XDG_CONFIG_HOME/composer"
 }
 
+function installSystemPackage()
+{
+    local pkgname="$1"
+
+    if ! rpm -q --quiet $pkgname; then
+        sudo dnf install -y $pkgname
+    fi
+}
+
 function installAndConfigurePythonTools() {
     TOOLS="$XDG_DATA_HOME/python-venvs/vim"
 
-    if ! rpm -q --quiet $PYTHON; then
-        sudo dnf -y install $PYTHON
-    fi
+    installSystemPackage $PYTHON
 
     rm -r $TOOLS
     $PYTHON -m venv --system-site-packages $TOOLS
@@ -25,21 +32,15 @@ function installAndConfigurePythonTools() {
 }
 
 function installAndConfigurePHPTools() {
-    if ! rpm -q --quiet composer; then
-        sudo dnf -y install composer
-    fi
+    installSystemPackage "composer"
 
     composer config --global bin-dir $BIN_HOME
     composer global require phpactor/phpactor
 }
 
 function installDependencies() {
-    if ! rpm -q --quiet curl; then
-        sudo dnf -y install curl
-    fi
-    if ! rpm -q --quiet nodejs; then
-        sudo dnf install -y nodejs
-    fi
+    installSystemPackage "curl"
+    installSystemPackage "nodejs" # for CoC plugin
 
     installAndConfigurePHPTools
     installAndConfigurePythonTools
@@ -67,6 +68,7 @@ function cleanEnvironment()
 
     rm -f $BIN_HOME/phpactor
     rm -f $BIN_HOME/phpstan
+    rm -f $BIN_HOME/composer
 }
 
 function doIt() {
