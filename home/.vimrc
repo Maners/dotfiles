@@ -8,9 +8,6 @@ call plug#begin()
 
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-else
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
