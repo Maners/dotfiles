@@ -57,14 +57,21 @@ function linkConfigFiles() {
     ln -sf $DOTFILES/home/.bashrc $HOME/.bashrc
     ln -sf $DOTFILES/home/.bash_profile $HOME/.bash_profile
 
-    rm -rf $XDG_CONFIG_HOME/nvim
     ln -sf $DOTFILES/config/nvim $XDG_CONFIG_HOME/nvim
+}
 
+function cleanEnvironment()
+{
+    rm -rf $XDG_CONFIG_HOME/nvim
     rm -rf $XDG_CONFIG_HOME/composer
-    ln -rf $DOFILES/config/composer $XDG_CONFIG_HOME/composer
+    rm -rf $HOME/.composer
+
+    rm -f $BIN_HOME/phpactor
+    rm -f $BIN_HOME/phpstan
 }
 
 function doIt() {
+    cleanEnvironment
     prepareEnvironment
     linkConfigFiles
     installDependencies
