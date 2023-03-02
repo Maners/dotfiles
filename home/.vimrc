@@ -13,12 +13,12 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'scrooloose/nerdtree'
-Plug 'benekastah/neomake'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-grepper'
 Plug 'eshion/vim-sync'
 Plug 'vim-airline/vim-airline'
 Plug 'icymind/NeoSolarized'
+Plug 'ruanyl/vim-gh-line'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -94,13 +94,6 @@ vnoremap <leader>P "+P
 
 nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
 
-" Configure PHP plugins
-let g:neomake_php_phpcs_args_standard = "PSR2"
-let g:neomake_phpstan_level = "5"
-
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 nnoremap <silent><Leader>hw :match ExtraWhitespace /\s\+$/<CR>
-
-" Neomake
-autocmd! BufWritePost * Neomake
