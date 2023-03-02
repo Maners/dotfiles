@@ -6,7 +6,8 @@ XDG_CACHE_HOME=${XDG_CACHE_HOME:="$HOME/.cache"}
 BIN_HOME="$HOME/.local/bin"
 DOTFILES=$PWD
 
-function prepareEnvironment() {
+function prepareEnvironment()
+{
     export COMPOSER_HOME="$XDG_CONFIG_HOME/composer"
 }
 
@@ -19,27 +20,31 @@ function installSystemPackage()
     fi
 }
 
-function installAndConfigurePHPTools() {
+function installAndConfigurePHPTools()
+{
     installSystemPackage "composer"
 
     composer config --global bin-dir $BIN_HOME
     composer global require phpactor/phpactor
 }
 
-function installDependencies() {
+function installDependencies()
+{
     installSystemPackage "curl"
     installSystemPackage "nodejs" # for CoC plugin
 
     installAndConfigurePHPTools
 }
 
-function applyDattoCustomizations() {
+function applyDattoCustomizations()
+{
     composer config --global repositories.datto composer https://packagist.datto.net
 }
 
 # Use symlinks instead of copying, so that any configuration changes outside
 # of the "dotfiles" checkout are still tracked in the "dotfiles"
-function linkConfigFiles() {
+function linkConfigFiles()
+{
     ln -sf $DOTFILES/home/.vimrc $HOME/.vimrc
     ln -sf $DOTFILES/home/.bashrc $HOME/.bashrc
     ln -sf $DOTFILES/home/.bash_profile $HOME/.bash_profile
@@ -58,7 +63,8 @@ function cleanEnvironment()
     rm -f $BIN_HOME/composer
 }
 
-function doIt() {
+function doIt()
+{
     cleanEnvironment
     prepareEnvironment
     linkConfigFiles
