@@ -19,6 +19,7 @@ Plug 'eshion/vim-sync'
 Plug 'vim-airline/vim-airline'
 Plug 'sainnhe/everforest'
 Plug 'ruanyl/vim-gh-line'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Rust
 Plug 'rust-lang/rust.vim'

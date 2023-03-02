@@ -30,16 +30,15 @@ function installAndConfigurePHPTools() {
     fi
 
     composer config --global bin-dir $BIN_HOME
-
-    composer global -d $DOTFILES/phpactor install
-    composer global require phpstan/phpstan
-
-    ln -sf $DOTFILES/phpactor/bin/phpactor $BIN_HOME/phpactor
+    composer global require phpactor/phpactor
 }
 
 function installDependencies() {
     if ! rpm -q --quiet curl; then
         sudo dnf -y install curl
+    fi
+    if ! rpm -q --quiet nodejs; then
+        sudo dnf install -y nodejs
     fi
 
     installAndConfigurePHPTools
