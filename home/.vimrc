@@ -18,8 +18,8 @@ Plug 'sainnhe/everforest'
 Plug 'ruanyl/vim-gh-line'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Rust
-Plug 'rust-lang/rust.vim'
+" PHP Plugins
+Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'} " LSP, refactoring etc
 
 call plug#end()
 
@@ -96,6 +96,18 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
 nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
+
+augroup PhpactorMappings
+    au!
+    au FileType php nmap <buffer> <Leader>e :PhpactorClassExpand<CR>
+    au FileType php nmap <buffer> <Leader>ua :PhpactorImportMissingClasses<CR>
+    au FileType php nmap <buffer> <Leader>mm :PhpactorContextMenu<CR>
+    au FileType php nmap <buffer> <Leader>nn :PhpactorNavigate<CR>
+    au FileType php nmap <buffer> <Leader>tt :PhpactorTransform<CR>
+    au FileType php nmap <buffer> <Leader>ci :PhpactorClassInflect<CR>
+    au FileType php nmap <buffer> <Leader>mf :PhpactorMoveFile<CR>
+    au FileType php nmap <buffer> <Leader>cf :PhpactorCopyFile<CR>
+augroup END
 
 " Highlits trailing white space
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen

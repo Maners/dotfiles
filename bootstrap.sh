@@ -24,8 +24,10 @@ function installAndConfigurePHPTools()
 {
     installSystemPackage "composer"
 
-    composer config --global bin-dir $BIN_HOME
-    composer global require phpactor/phpactor
+    composer global config bin-dir $BIN_HOME
+    git clone git@github.com:phpactor/phpactor $HOME/projects/phpactor 
+    composer global -d $HOME/projects/phpactor install
+    ln -sf $HOME/projects/phpactor/bin/phpactor $BIN_HOME/phpactor
 }
 
 function installDependencies()
