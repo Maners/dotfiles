@@ -34,6 +34,15 @@ function installDependencies()
 {
     installSystemPackage "curl"
     installSystemPackage "nodejs" # for CoC plugin
+    installSystemPackage "git"
+
+    # Vim
+    curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    # NeiVim
+    curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     installAndConfigurePHPTools
 }
