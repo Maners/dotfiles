@@ -1,0 +1,5 @@
+{
+    "phpactor.config": { "language_server_completion.trim_leading_dollar": true },
+    "psalm.unusedVariableDetection": true,
+    "psalm.disableCompletion": true
+}
