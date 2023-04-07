@@ -20,6 +20,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " PHP Plugins
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'} " LSP, refactoring etc
+Plug 'tobyS/pdv', {'for': 'php'} " Easy PHPDoc insertion
 
 call plug#end()
 
