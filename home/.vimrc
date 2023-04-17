@@ -16,11 +16,12 @@ Plug 'eshion/vim-sync'
 Plug 'vim-airline/vim-airline'
 Plug 'sainnhe/everforest'
 Plug 'ruanyl/vim-gh-line'
+Plug 'SirVer/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " PHP Plugins
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'} " LSP, refactoring etc
-Plug 'tobyS/pdv', {'for': 'php'} " Easy PHPDoc insertion
+Plug 'tobyS/vmustache' | Plug 'tobyS/pdv', {'for': 'php'} " Easy PHPDoc insertion
 
 call plug#end()
 
@@ -97,6 +98,10 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
 nnoremap <leader>l :setlocal spell spelllang=en_us<CR>
+
+" pdv config
+let g:pdv_template_dir = $HOME ."/.local/share/nvim/plugged/pdv/templates_snip"
+autocmd FileType php nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 
 " <<< CoC Bindings Start
 
