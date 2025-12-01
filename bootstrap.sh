@@ -36,8 +36,14 @@ function installSystemPackage()
 {
     local pkgname="$1"
 
-    if ! rpm -q --quiet $pkgname; then
-        sudo dnf install -y $pkgname
+    if $IS_DEB eq "false"; then
+        if ! rpm -q --quiet $pkgname; then
+            sudo dnf install -y $pkgname
+        fi
+    else
+        if ! dpkg --verify $pkgname 2>/dev/null; then
+            sudo apt -y install $pkgname
+        fi
     fi
 }
 
@@ -49,6 +55,7 @@ function installAndConfigurePHPTools()
     git clone git@github.com:phpactor/phpactor $HOME/projects/phpactor 
     composer global -d $HOME/projects/phpactor install
     ln -sf $HOME/projects/phpactor/bin/phpactor $BIN_HOME/phpactor
+    echo "alias phptags='ctags -R --languages=PHP --kinds-PHP=-a --tag-relative=yes --exclude=".git" --fields=+aimSl'" >> $HOME/.bash_profile
 }
 
 function installDependencies()
@@ -65,7 +72,7 @@ function installDependencies()
     curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-    installAndConfigurePHPTools
+#    installAndConfigurePHPTools
 }
 
 # Use symlinks instead of copying, so that any configuration changes outside
@@ -73,8 +80,6 @@ function installDependencies()
 function linkConfigFiles()
 {
     ln -sf $DOTFILES/home/.vimrc $HOME/.vimrc
-    ln -sf $DOTFILES/home/.bashrc $HOME/.bashrc
-    ln -sf $DOTFILES/home/.bash_profile $HOME/.bash_profile
 
     ln -sf $DOTFILES/config/nvim $XDG_CONFIG_HOME/nvim
 }
@@ -96,8 +101,6 @@ function doIt()
     prepareEnvironment
     linkConfigFiles
     installDependencies
-    source ~/.bash_profile
-    source ~/.bashrc
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
