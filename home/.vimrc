@@ -7,7 +7,6 @@ endif
 call plug#begin()
 if has('nvim')
   Plug 'nvim-treesitter/nvim-treesitter', {'do':  ':TSUpdate'}
-  Plug 'jackMort/ChatGPT.nvim'
   Plug 'MunifTanjim/nui.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'folke/trouble.nvim'
@@ -20,12 +19,12 @@ Plug 'eshion/vim-sync'
 Plug 'vim-airline/vim-airline'
 Plug 'sainnhe/everforest'
 Plug 'ruanyl/vim-gh-line'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " PHP Plugins
 "Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'} " LSP, refactoring etc
-Plug 'tobyS/vmustache' | Plug 'tobyS/pdv', {'for': 'php'} " Easy PHPDoc insertion
+"Plug 'tobyS/vmustache' | Plug 'tobyS/pdv', {'for': 'php'} " Easy PHPDoc insertion
 
 call plug#end()
 
