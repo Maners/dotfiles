@@ -1,12 +1,6 @@
-require'nvim-treesitter.configs'.setup {
-   -- Automatically install missing parsers when entering buffer
-  auto_install = true,
-  highlight = {
-    enable = true,
-  },
-}
-
 local home = vim.fn.expand("$HOME")
-require('chatgpt').setup({
-    api_key_cmd = "cat " .. home .. "/.oai.key"
-})
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
